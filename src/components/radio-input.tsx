@@ -3,7 +3,7 @@ import React from "react";
 type RadioImageProps = {
   name: string; // group name (like "gun" or "target")
   value: string; // value to pass when selected
-  src: string; // image URL
+  image: string; // image URL
   alt: string; // alt text for accessibility
   selectedValue: string; // currently selected value (from parent state)
   onChange: (value: string) => void; // callback when user selects
@@ -12,7 +12,7 @@ type RadioImageProps = {
 const RadioImage: React.FC<RadioImageProps> = ({
   name,
   value,
-  src,
+  image,
   alt,
   selectedValue,
   onChange,
@@ -28,7 +28,7 @@ const RadioImage: React.FC<RadioImageProps> = ({
         className="hidden peer"
       />
       <img
-        src={src}
+        src={image}
         alt={alt}
         className="w-25 h-24 border-2 border-transparent peer-checked:border-blue-500 rounded-lg"
       />
