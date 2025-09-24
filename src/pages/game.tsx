@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Explosion  } from "../assets/Sprites";
 
 interface GameState {
   username: string;
@@ -137,7 +138,7 @@ export function GamePage() {
           {/* Boom effect */}
           {targetObj.showBoom && (
             <img
-              src={`/src/assets/Sprites/boom.png`}
+              src={Explosion}
               alt="Boom"
               style={{
                 position: "absolute",
@@ -152,7 +153,7 @@ export function GamePage() {
 
       {/* Gun positioned at bottom */}
       <img
-        src={`/src/assets/Sprites/${gun}.png`}
+        src={`/src/assets/Sprites/${state.gun}.png`}
         alt="Gun"
         className="fixed bottom-4 left-1/2 transform -translate-x-1/2"
         style={{ width: "300px" }}
