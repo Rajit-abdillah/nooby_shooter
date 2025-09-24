@@ -100,17 +100,9 @@ export function GamePage() {
   }, [timer]);
 
   if (timer <= 0) {
-    navigate("/gameover", { state: { username, level, gun, score } });
-    preventBack();
+    navigate("/gameover", { state: { username, level, gun, score } });    
   }
 
-  function preventBack() {
-    window.history.forward();
-  }
-  setTimeout("preventBack()", 0);
-  window.onunload = function () {
-    null;
-  };
 
   return (
     <>
