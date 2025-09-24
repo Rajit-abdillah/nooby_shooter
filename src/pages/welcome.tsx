@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RadioImage, Modal } from "../components/index";
-import { Gun1, Gun2, Target1, Target2, Target3 } from "../assets/Sprites";
 
 export function Welcome() {
   const [gun, setGun] = useState("");
@@ -34,10 +33,10 @@ export function Welcome() {
   }, [playing, timer]);
 
   return (
-    <div className="bg-[url('/src/assets/Sprites/welcome-bg.jpg')]">
+    <div className="bg-[url('/assets/Sprites/welcome-bg.jpg')]">
       <main className="pt-16 p-4 container mx-auto w-[500px] rounded bg-transparent backdrop-blur-sm">
         <div className="flex flex-col items-center justify-center gap-10">
-          <img src="/src/assets/Sprites/shooter.png" alt="Shooter game" />
+          <img src="/assets/Sprites/shooter.png" alt="Shooter game" />
         </div>
 
         <div className="flex flex-col items-center justify-center pt-10">
@@ -71,7 +70,7 @@ export function Welcome() {
                 <RadioImage
                   name="gun"
                   value="gun1"
-                  image={Gun1}
+                  src="/assets/Sprites/gun1.png"
                   alt="Gun 1"
                   selectedValue={gun}
                   onChange={setGun}
@@ -79,7 +78,7 @@ export function Welcome() {
                 <RadioImage
                   name="gun"
                   value="gun2"
-                  image={Gun2}
+                  src="/assets/Sprites/gun2.png"
                   alt="Gun 2"
                   selectedValue={gun}
                   onChange={setGun}
@@ -91,7 +90,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target1"
-                  image={Target1}
+                  src="/assets/Sprites/target1.png"
                   alt="Target 1"
                   selectedValue={target}
                   onChange={setTarget}
@@ -99,7 +98,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target2"
-                  image={Target2}
+                  src="/assets/Sprites/target2.png"
                   alt="Target 2"
                   selectedValue={target}
                   onChange={setTarget}
@@ -107,7 +106,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target3"
-                  image={Target3}
+                  src="/assets/Sprites/target3.png"
                   alt="Target 3"
                   selectedValue={target}
                   onChange={setTarget}
