@@ -106,7 +106,7 @@ export function GamePage() {
 
   return (
     <>
-      <div className="bg-[url(/src/assets/Sprites/background.jpg)] bg-cover h-screen"></div>
+      <div className="bg-[url(/assets/Sprites/background.jpg)] bg-cover h-screen"></div>
       <div className="fixed top-0 left-0 flex flex-row gap-10 bg-amber-800 w-full p-2">
         <h1 className="text-3xl font-bold">Shooter Game</h1>
         <p className="text-2xl font-bold">Player: {username}</p>
@@ -119,7 +119,7 @@ export function GamePage() {
           {/* Regular target */}
           {targetObj.visible && (
             <img
-              src={`/src/assets/Sprites/${state.target}.png`}
+              src={`/assets/Sprites/${state.target}.png`}
               alt="Target"
               style={{
                 position: "absolute",
@@ -137,7 +137,7 @@ export function GamePage() {
           {/* Boom effect */}
           {targetObj.showBoom && (
             <img
-              src={`/src/assets/Sprites/boom.png`}
+              src={`/assets/Sprites/boom.png`}
               alt="Boom"
               style={{
                 position: "absolute",
@@ -152,7 +152,7 @@ export function GamePage() {
 
       {/* Gun positioned at bottom */}
       <img
-        src={`/src/assets/Sprites/${gun}.png`}
+        src={`/assets/Sprites/${gun}.png`}
         alt="Gun"
         className="fixed bottom-4 left-1/2 transform -translate-x-1/2"
         style={{ width: "300px" }}
