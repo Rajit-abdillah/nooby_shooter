@@ -6,6 +6,7 @@ interface GameState {
   level: string;
   gun: string;
   target: string;
+  playing: boolean;
 }
 
 export function GamePage() {
@@ -18,80 +19,144 @@ export function GamePage() {
     return null;
   }
 
-  const { username, level, gun, target } = state;
+  const { username, level, gun } = state;
 
-  // 🎯 Game states
   const [timer, setTimer] = useState(0);
-  const [showTarget, setShowTarget] = useState(true);
-  const [targetPos, setTargetPos] = useState({ x: 200, y: 200 });
+
+  const [targets, setTargets] = useState([
+    { id: 1, x: 200, y: 200, visible: true, showBoom: false },
+    { id: 2, x: 400, y: 300, visible: true, showBoom: false },
+    { id: 3, x: 600, y: 150, visible: true, showBoom: false },
+  ]);
   const [score, setScore] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTargetPos({
-        x: Math.floor(Math.random() * 900), // width range
-        y: Math.floor(Math.random() * 300) + 100, // height range
-      });
-    }, 3000); // every 3 seconds
+      setTargets((prevTargets) =>
+        prevTargets.map((target) => ({
+          ...target,
+          x: Math.floor(Math.random() * 900),
+          y: Math.floor(Math.random() * 300) + 100,
+        }))
+      );
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
-  function Cooldown() {
-    setShowTarget(false);
+  const DifficultyPoints = (level: string) => {
+    switch (level) {
+      case "easy":
+        return 1;
+      case "medium":
+        return 2;
+      case "hard":
+        return 3;
+      default:
+        return 0;
+    }
+  };
+
+  function Cooldown(targetId: number) {
+    setTargets((prevTargets) =>
+      prevTargets.map((target) =>
+        target.id === targetId
+          ? { ...target, visible: false, showBoom: true }
+          : target
+      )
+    );
+
     setTimeout(() => {
-      setShowTarget(true);
-    }, 2500);
+      setTargets((prevTargets) =>
+        prevTargets.map((target) =>
+          target.id === targetId ? { ...target, showBoom: false } : target
+        )
+      );
+    }, 200);
+
+    setTimeout(() => {
+      setTargets((prevTargets) =>
+        prevTargets.map((target) =>
+          target.id === targetId ? { ...target, visible: true } : target
+        )
+      );
+    }, 2500); // Show target again after 2.5s
   }
 
-  // 🎯 Set timer based on level when component mounts
   useEffect(() => {
     if (level === "easy") setTimer(60);
     if (level === "medium") setTimer(45);
     if (level === "hard") setTimer(30);
   }, [level]);
 
-  // 🎯 Countdown effect
   useEffect(() => {
     if (timer <= 0) return;
 
     const interval = setInterval(() => {
       setTimer((prev) => prev - 1);
-    }, 1000);    
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [timer]);
 
   if (timer <= 0) {
-    navigate("/gameover", { state: { username, level, gun, target } });
+    navigate("/gameover", { state: { username, level, gun, score } });
+    preventBack();
   }
+
+  function preventBack() {
+    window.history.forward();
+  }
+  setTimeout("preventBack()", 0);
+  window.onunload = function () {
+    null;
+  };
 
   return (
     <>
-      <div className="fixed top-0 left-0 flex flex-row gap-10">
-        <h1 className="text-3xl font-bold text-black">Shooter Game</h1>
-        <p className="text-2xl font-bold text-black">Player: {username}</p>
+      <div className="bg-[url(/src/assets/Sprites/background.jpg)] bg-cover h-screen"></div>
+      <div className="fixed top-0 left-0 flex flex-row gap-10 bg-amber-800 w-full p-2">
+        <h1 className="text-3xl font-bold">Shooter Game</h1>
+        <p className="text-2xl font-bold">Player: {username}</p>
         <p className="text-2xl font-bold text-red-500">Time Left: {timer}s</p>
         <p className="text-2xl font-bold text-green-500">Score: {score}</p>
       </div>
 
-      {/* Target (hidden when showTarget = false) */}
-      {showTarget && (
-        <img
-          src={`/src/assets/Sprites/${target}.png`}
-          alt="Target"
-          style={{
-            position: "absolute",
-            left: targetPos.x,
-            top: targetPos.y,
-            width: "80px",
-          }}
-          onClick={() => {
-            setScore((prev) => prev + 1);
-            Cooldown();
-          }}
-        />
-      )}
+      {targets.map((targetObj) => (
+        <div key={targetObj.id}>
+          {/* Regular target */}
+          {targetObj.visible && (
+            <img
+              src={`/src/assets/Sprites/${state.target}.png`}
+              alt="Target"
+              style={{
+                position: "absolute",
+                left: targetObj.x,
+                top: targetObj.y,
+                width: "80px",
+              }}
+              onClick={() => {
+                setScore(score + DifficultyPoints(level));
+                Cooldown(targetObj.id);
+              }}
+            />
+          )}
+
+          {/* Boom effect */}
+          {targetObj.showBoom && (
+            <img
+              src={`/src/assets/Sprites/boom.png`}
+              alt="Boom"
+              style={{
+                position: "absolute",
+                left: targetObj.x,
+                top: targetObj.y,
+                width: "80px",
+              }}
+            />
+          )}
+        </div>
+      ))}
 
       {/* Gun positioned at bottom */}
       <img
