@@ -45,6 +45,7 @@ export default function Example() {
                             <li>4. Have fun!</li>
                             <br />
                             <li>Note: easy mode have 1 minute of time, you will get 1 score per target, medium mode have 45 seconds of time, you will get 2 score per target, hard mode have 30 seconds of time, you will get 3 score per target</li>
+                            <li>This game is not accessible from mobile yet! i will be working on it soon.</li>
                         </ol>
                       </p>
                     </div>
