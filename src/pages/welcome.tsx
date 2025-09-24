@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RadioImage, Modal } from "../components/index";
+import { Gun1, Gun2, Target1, Target2, Target3 } from "../assets/Sprites";
 
 export function Welcome() {
   const [gun, setGun] = useState("");
@@ -70,7 +71,7 @@ export function Welcome() {
                 <RadioImage
                   name="gun"
                   value="gun1"
-                  src="/src/assets/Sprites/gun1.png"
+                  image={Gun1}
                   alt="Gun 1"
                   selectedValue={gun}
                   onChange={setGun}
@@ -78,7 +79,7 @@ export function Welcome() {
                 <RadioImage
                   name="gun"
                   value="gun2"
-                  src="/src/assets/Sprites/gun2.png"
+                  image={Gun2}
                   alt="Gun 2"
                   selectedValue={gun}
                   onChange={setGun}
@@ -90,7 +91,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target1"
-                  src="/src/assets/Sprites/target1.png"
+                  image={Target1}
                   alt="Target 1"
                   selectedValue={target}
                   onChange={setTarget}
@@ -98,7 +99,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target2"
-                  src="/src/assets/Sprites/target2.png"
+                  image={Target2}
                   alt="Target 2"
                   selectedValue={target}
                   onChange={setTarget}
@@ -106,7 +107,7 @@ export function Welcome() {
                 <RadioImage
                   name="target"
                   value="target3"
-                  src="/src/assets/Sprites/target3.png"
+                  image={Target3}
                   alt="Target 3"
                   selectedValue={target}
                   onChange={setTarget}
