@@ -43,6 +43,8 @@ export default function Example() {
                             <li>2. Select your theme</li>
                             <li>3. Press start</li>
                             <li>4. Have fun!</li>
+                            <br />
+                            <li>Note: easy mode have 1 minute of time, you will get 1 score per target, medium mode have 45 seconds of time, you will get 2 score per target, hard mode have 30 seconds of time, you will get 3 score per target</li>
                         </ol>
                       </p>
                     </div>
